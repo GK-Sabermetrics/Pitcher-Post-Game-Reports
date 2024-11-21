@@ -1,0 +1,117 @@
+---
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    keep_tex: false
+geometry: 
+  - paperwidth=8.5in
+  - paperheight=11in
+  - margin=0.05in 
+ 
+header-includes:
+  \usepackage{fontspec}
+  \setmainfont{Arial}
+  \usepackage{booktabs}
+  \usepackage{colortbl}
+  \usepackage{subfig}
+  \usepackage{floatrow}
+  \usepackage{sectsty}
+  \usepackage{titlesec}
+  \graphicspath{{/Users/garrettkemp/Documents/Mercer Baseball/Photos for Graphics/Sailor-Bear}}
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(gridExtra)
+library(gtsummary)
+library(pak)
+library(kableExtra)
+library(knitr)
+library(scales)
+library(pandoc)
+library(ggrepel)
+library(ggplot2)
+opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.pos = '!h')
+```
+
+\begin{minipage}{0.3\textwidth}
+\centering
+\includegraphics[width=2cm, height=2cm]{SailorBearOG}
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\textbf{\fontsize{20}{20}\selectfont `r params$pitcher`}
+\end{center}
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\textwidth}
+\centering
+\includegraphics[width=3cm, height=2cm]{SailorBearOG}
+\end{minipage}
+
+\vspace{-4mm} 
+\begin{center}
+\textbf{\normalsize `r params$date` vs `r params$opponent`}
+\end{center}
+
+
+\begin{center}
+\textbf{\normalsize Game Stats}
+\end{center}
+\vspace{-2mm} 
+
+```{r game stats, echo=FALSE, warning=FALSE }
+
+
+kable(game_stats, format = "latex",  linesep = "", align = 'c') %>%
+  kable_styling(latex_options = "HOLD_position", position = "center")%>%
+  column_spec(1, bold = TRUE, border_left = TRUE) %>%
+  row_spec(row = 0, color = "white", background = "#f76800") %>%
+  column_spec(ncol(game_stats), border_right = TRUE)
+```
+
+\vspace{-4mm} 
+\begin{center}
+\textbf{\normalsize Pitch Metrics}
+\end{center}
+\vspace{-2mm} 
+
+```{r pitch metrics,warning=FALSE,echo=FALSE}
+
+pitch_metrics  %>%
+  kable(format = "latex",  linesep = "", label = "Game Summary") %>%
+  kable_styling(latex_options = "HOLD_position", position = "center", font_size = 10) %>%
+  column_spec(1, bold = TRUE, border_left = TRUE, color = "white", 
+              background = case_when(
+                pitch_metrics$Pitch == "FB" ~ '#d22d49',
+                pitch_metrics$Pitch == "2SFB" ~ '#93afd4',
+                pitch_metrics$Pitch == "SI" ~ '#de6a04',
+                pitch_metrics$Pitch == "SP" ~ '#ddb33a',
+                pitch_metrics$Pitch == "CT" ~ '#933f2c',
+                pitch_metrics$Pitch == "CH" ~ '#1dbe3a',
+                pitch_metrics$Pitch == "SL" ~ '#c3bd0e',
+                pitch_metrics$Pitch == "CB" ~ '#00d1ed',
+                pitch_metrics$Pitch == "KC" ~ '#854cb5',
+                TRUE ~ 'black'
+              )
+  ) %>% 
+  row_spec(row = 0, color = "white", background = "#f76800") %>%
+  column_spec(ncol(pitch_metrics), border_right = TRUE) 
+```
+
+\vspace{-4mm} 
+
+```{r, echo=FALSE, warning=FALSE, fig.width=7.8, fig.height = 3.4, fig.align='center'} 
+# pitch_movement_plot
+# arm_angle_plot
+pitch_movement_plot
+
+gridExtra::grid.arrange(pitch_movement_plot, pitch_release_plot, ncol = 2)
+```
+\vspace{-9mm} 
+
+
+
