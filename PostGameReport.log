@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.4.11)  20 NOV 2024 20:51
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.4.11)  16 DEC 2024 16:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -989,25 +989,32 @@ LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
 LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
 (Font)              scaled to size 20.0pt on input line 80.
 File: /Users/garrettkemp/Documents/Mercer Baseball/Photos for Graphics/Sailor-B
-ear/SailorBearOG.png Graphic file (type bmp)
+ear/SoConLogo.png Graphic file (type bmp)
 </Users/garrettkemp/Documents/Mercer Baseball/Photos for Graphics/Sailor-Bear/S
-ailorBearOG.png>
+oConLogo.png>
 File: PostGameReport_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (typ
 e pdf)
 <use PostGameReport_files/figure-latex/unnamed-chunk-1-1.pdf>
-File: PostGameReport_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (typ
+File: PostGameReport_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (typ
 e pdf)
-<use PostGameReport_files/figure-latex/unnamed-chunk-1-2.pdf>
+<use PostGameReport_files/figure-latex/unnamed-chunk-2-1.pdf>
 [1
 
-] (./PostGameReport.aux) ) 
+]
+File: PostGameReport_files/figure-latex/Pitch Location-1.pdf Graphic file (type
+ pdf)
+<use PostGameReport_files/figure-latex/Pitch Location-1.pdf>
+File: PostGameReport_files/figure-latex/breakdown-1.pdf Graphic file (type pdf)
+
+<use PostGameReport_files/figure-latex/breakdown-1.pdf>
+[2] (./PostGameReport.aux) ) 
 Here is how much of TeX's memory you used:
- 20938 strings out of 476179
- 386490 string characters out of 5809544
- 875112 words of memory out of 5000000
- 41416 multiletter control sequences out of 15000+600000
+ 20975 strings out of 476179
+ 388342 string characters out of 5809544
+ 890112 words of memory out of 5000000
+ 41450 multiletter control sequences out of 15000+600000
  472836 words of font info for 65 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,9n,122p,1203b,349s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on PostGameReport.pdf (1 page).
+Output written on PostGameReport.pdf (2 pages).

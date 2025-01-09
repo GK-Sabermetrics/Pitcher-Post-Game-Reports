@@ -43,13 +43,13 @@ knitr::opts_chunk$set(fig.pos = '!h')
 \hfill
 \begin{minipage}{0.3\textwidth}
 \begin{center}
-\textbf{\fontsize{20}{20}\selectfont `r params$pitcher`}
+\textbf{\fontsize{20}{20}\selectfont Arm Care Report:`r params$pitcher`}
 \end{center}
 \end{minipage}
 \hfill
 \begin{minipage}{0.3\textwidth}
 \centering
-\includegraphics[width=3cm, height=2cm]{SailorBearOG}
+\includegraphics[width=3cm, height=2cm]{SoConLogo}
 \end{minipage}
 
 \vspace{-4mm} 
@@ -82,7 +82,7 @@ kable(game_stats, format = "latex",  linesep = "", align = 'c') %>%
 ```{r pitch metrics,warning=FALSE,echo=FALSE}
 
 pitch_metrics  %>%
-  kable(format = "latex",  linesep = "", label = "Game Summary") %>%
+  kable(format = "latex",  linesep = "", label = "Game Summary", align = 'c') %>%
   kable_styling(latex_options = "HOLD_position", position = "center", font_size = 10) %>%
   column_spec(1, bold = TRUE, border_left = TRUE, color = "white", 
               background = case_when(
@@ -102,16 +102,126 @@ pitch_metrics  %>%
   column_spec(ncol(pitch_metrics), border_right = TRUE) 
 ```
 
-\vspace{-4mm} 
+\vspace{-4mm}
+\begin{center}
+\textbf{\normalsize Pitch Stats}
+\end{center}
+\vspace{-2mm} 
+
+```{r pitch stats,warning=FALSE,echo=FALSE}
+
+pitch_stats  %>%
+  kable(format = "latex",  linesep = "", label = "Pitch Stats", align = 'c') %>%
+  kable_styling(latex_options = "HOLD_position", position = "center", font_size = 10) %>%
+  column_spec(1, bold = TRUE, border_left = TRUE, color = "white", 
+              background = case_when(
+                pitch_stats$Pitch == "FB" ~ '#d22d49',
+                pitch_stats$Pitch == "2SFB" ~ '#93afd4',
+                pitch_stats$Pitch == "SI" ~ '#de6a04',
+                pitch_stats$Pitch == "SP" ~ '#ddb33a',
+                pitch_stats$Pitch == "CT" ~ '#933f2c',
+                pitch_stats$Pitch == "CH" ~ '#1dbe3a',
+                pitch_stats$Pitch == "SL" ~ '#c3bd0e',
+                pitch_stats$Pitch == "CB" ~ '#00d1ed',
+                pitch_stats$Pitch == "KC" ~ '#854cb5',
+                TRUE ~ 'black'
+              )
+  ) %>% 
+  row_spec(row = 0, color = "white", background = "#f76800") %>%
+  column_spec(ncol(pitch_stats), border_right = TRUE) 
+```
+
 
 ```{r, echo=FALSE, warning=FALSE, fig.width=7.8, fig.height = 3.4, fig.align='center'} 
 # pitch_movement_plot
 # arm_angle_plot
-pitch_movement_plot
 
 gridExtra::grid.arrange(pitch_movement_plot, pitch_release_plot, ncol = 2)
 ```
-\vspace{-9mm} 
 
+\vspace{-1mm} 
 
+```{r echo=FALSE, fig.align='center', fig.height=2.9, fig.width=7.8, message=FALSE, warning=FALSE}
 
+gridExtra::grid.arrange(pitch_velo_plot, pitch_dist_plot, ncol = 2)
+
+```
+\vspace{-1mm} 
+\newpage
+
+\vspace{-2mm} 
+
+\begin{center}
+\begin{minipage}[t]{0.4\textwidth}
+\centering
+\textbf{\normalsize Pitch Usage vs Left}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\textbf{\normalsize Pitch Usage vs Right}
+\end{minipage}
+\end{center}
+\vspace{-3mm} 
+
+```{r Vs R & L, echo=FALSE, message=FALSE, warning=FALSE}
+
+knitr::kables(
+  list(
+    if(nrow(usage_l) >0){
+      knitr::kable(usage_l, valign = 't', align = 'c') %>%
+        column_spec(1, bold = TRUE, border_left = TRUE, color = "white", 
+              background = case_when(
+                usage_l$Pitch == "FB" ~ '#d22d49',
+                usage_l$Pitch == "2SFB" ~ '#93afd4',
+                usage_l$Pitch == "SI" ~ '#de6a04',
+                usage_l$Pitch == "SP" ~ '#ddb33a',
+                usage_l$Pitch == "CT" ~ '#933f2c',
+                usage_l$Pitch == "CH" ~ '#1dbe3a',
+                usage_l$Pitch == "SL" ~ '#c3bd0e',
+                usage_l$Pitch == "CB" ~ '#00d1ed',
+                usage_l$Pitch == "KC" ~ '#854cb5',
+                TRUE ~ 'black'
+              )
+  ) %>% 
+        row_spec(row = 0, color = "white", background = "#f76800")%>%
+        column_spec(ncol(usage_r), border_right = TRUE)},
+    
+    if(nrow(usage_r) >0){
+      knitr::kable(usage_r,  valign = 't', align = 'c') %>%
+        column_spec(1, bold = TRUE, border_left = TRUE, color = "white", 
+              background = case_when(
+                usage_r$Pitch == "FB" ~ '#d22d49',
+                usage_r$Pitch == "2SFB" ~ '#93afd4',
+                usage_r$Pitch == "SI" ~ '#de6a04',
+                usage_r$Pitch == "SP" ~ '#ddb33a',
+                usage_r$Pitch == "CT" ~ '#933f2c',
+                usage_r$Pitch == "CH" ~ '#1dbe3a',
+                usage_r$Pitch == "SL" ~ '#c3bd0e',
+                usage_r$Pitch == "CB" ~ '#00d1ed',
+                usage_r$Pitch == "KC" ~ '#854cb5',
+                TRUE ~ 'black'
+              )
+  ) %>% 
+        row_spec(row = 0, color = "white", background = "#f76800") %>%
+        column_spec(ncol(usage_l), border_right = TRUE) }
+  ), 
+  format = "latex" )  %>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
+
+\vspace{0mm}
+
+```{r Pitch Location, echo=FALSE, warning=FALSE, fig.width=8.4,fig.height=3.25, position= 'center'} 
+gridExtra::grid.arrange(plp_lhh, plp_rhh, ncol = 2)
+```
+\vspace{-1mm} 
+
+\begin{center}
+\textbf{\normalsize Situational Pitch Breakdown}
+\end{center}
+\vspace{0mm} 
+```{r breakdown, echo = F, warning = F, position='center', fig.height=3, fig.width=8, fig.align = 'center'}
+breakdown
+```
