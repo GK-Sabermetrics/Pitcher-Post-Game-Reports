@@ -27,7 +27,6 @@ Pitch_Mov_Plot = function(pitcher_data){
     theme_bw() + theme(plot.title = element_text(size = 10, face = "bold", hjust = 0.5)) +
     theme(legend.position = "none", legend.text = element_text(size = 8), axis.title = element_blank()) # axis.title = element_text(size = 6))
   
-  
 }
 
 Pitch_Rel_Plot = function(pitcher_data){
